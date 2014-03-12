@@ -2,8 +2,8 @@
 =======
 
 ### Ban/ban.class.php 
-关键词过滤(2014-03-12)
-    public __construct
+关键词过滤(2014-03-12) 
+    public __construct 
     private sortByLen  自定义排序
     public  has_ban    比较是否存在过滤关键词
     public  filter     过滤
