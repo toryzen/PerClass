@@ -1,7 +1,7 @@
 <?php
 /**
  * 关键词过滤
- * @author toryzen
+ * @author toryzen(toryzen.com)
  * @create 2014-03-12
  */
  
