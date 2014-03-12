@@ -1,7 +1,7 @@
 个人脚本(类)合集
 =======
 
-### Ban/ban.class.php
+### Ban/ban.class.php 
 关键词过滤(2014-03-12)
     public __construct
     private sortByLen  自定义排序
