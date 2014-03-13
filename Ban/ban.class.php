@@ -4,21 +4,41 @@
  * @author toryzen(toryzen.com)
  * @create 2014-03-12
  */
- 
 class Ban{
+    
+    const DEFAUTDIR = "/list";
     
     protected $key_num = 0;
     protected $ban_list = array();
     protected $replace_num = 0;
     protected $source;
+    public $is_ban = FALSE;
     
     /**
      * 构造
      * @param string $source 源文件
      * @param string $dir    目录名
      */
-    public function __construct($source,$dir="./list"){
+    public function __construct($source=NULL,$dir=NULL){
+        if($source!=NULL){
+            $this->source = $source;
+        }
+        if($dir!=NULL){
+            $this->set_dir($dir);
+        }else{
+            $this->set_dir(dirname(__FILE__).self::DEFAUTDIR);
+        }
+    }
+    /**
+        设置源
+    */
+    public function set_source($source){
         $this->source = $source;
+    }
+    /**
+        设置目录
+    */
+    public function set_dir($dir){
         $contents = "";
         if(is_dir($dir)){
             //读取整个目录
@@ -47,7 +67,6 @@ class Ban{
             exit("Directory not exists !");
         }
     }
-    
     /**
         自定义排序
     */
@@ -62,8 +81,9 @@ class Ban{
     /**
         比较是否存在过滤关键词
     */
-    public function has_ban(){
-        
+    public function has_ban($source=NULL){
+        if($source!=NULL)$this->source = $source;
+        if($this->is_ban)return TRUE;
         foreach($this->ban_list as $key){
             if(strpos($this->source,$key)!==FALSE){
                 return TRUE;
@@ -76,7 +96,8 @@ class Ban{
      * 过滤
      * @param bool $strip 是否过滤html标签
      */
-    public function filter($strip = FALSE){
+    public function filter($source=NULL,$strip = FALSE){
+        if($source!=NULL)$this->source = $source;
         $old_num = substr_count($this->source,'*');
         //不区分大小写
         $ban_list = array_change_key_case(array_combine($this->ban_list,array_fill(0,$this->key_num,'*')),CASE_LOWER);
@@ -84,6 +105,9 @@ class Ban{
         $return = strtr($source,$ban_list);
         $new_num = substr_count($return,'*');
         $this->replace_num = $new_num-$old_num;
+        if($this->replace_num>0){
+        	$this->is_ban = TRUE;
+        }
         return $return;
     }
     /**
