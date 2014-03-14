@@ -12,3 +12,13 @@ public  filter      过滤
 public  info        获取类信息
 </pre>
 过滤词库文件放入文件夹下，以单个回车算一个关键词
+
+tCatch/tcatch.class.php
+-----------------------------------
+源码抓取(2014-03-14) 
+<pre>
+public   __construct 
+private  fetch        抓取
+private  getCharset   获取编码
+private  uni_decode   编码转换
+</pre>
